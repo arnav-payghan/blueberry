@@ -4,11 +4,42 @@ $(document).ready(function () {
         loop: true,
         sync: true,
         in: {
-            effect: "bounceIn",
+            effect: "fadeIn",
+            sync: true,
         },
         out: {
-            effect: "bounceOut",
+            effect: "fadeOutDown",
+            sync: true,
         },
     })
+
+    // Siri Configuration
+
+    var siriWave = new SiriWave({
+        container: document.getElementById("siri-container"),
+        width: 800,
+        height: 200,
+        style: "ios9",
+        amplitude: "1.5",
+        speed: "0.30",
+        autostart: true,
+      });
+
+      // Siri Message Animation
+
+    $('.siri-message').textillate({
+        loop: true,
+        sync: true,
+        in: {
+            effect: "fadeInUp",
+            sync: true,
+        },
+        out: {
+            effect: "fadeOutDown",
+            sync: true,
+        },
+    })
+
+
 
 });
