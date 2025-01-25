@@ -33,7 +33,7 @@ $(document).ready(function () {
             sync: true,
         },
         out: {
-            effect: "fadeOutDown",
+            effect: "fadeOutUp",
             sync: true,
         },
     })
@@ -43,7 +43,7 @@ $(document).ready(function () {
         eel.playAssistantSound()
         $("#oval").attr("hidden", true);
         $("#siriWave").attr("hidden", false);
-        eel.takeCommand()()
+        eel.allCommands()()
     });
 
 
