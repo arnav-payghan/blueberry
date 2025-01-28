@@ -1,11 +1,15 @@
 import re
+import sqlite3
 from playsound import playsound
 import eel
 from engine.command import speak
 from engine.config import ASSISTANT_NAME
 import os
 import pywhatkit as kit
+import webbrowser
 
+conn = sqlite3.connect("assistant.db")
+cursor = conn.cursor()
 
 @eel.expose
 def playAssistantSound():   # Start PopUp Sound for Assistant
@@ -18,11 +22,31 @@ def openCommand(query):
     query = query.replace("open", "")
     query.lower()
 
-    if query!="":
-        speak("Opening "+query)
-        os.system('start '+query)
-    else:
-        speak("Sorry, I couldn't help with that.")
+    app_name = query.strip()
+
+    if app_name != "":
+        try:
+            cursor.execute('SELECT path FROM sys_command WHERE name IN (?)', (app_name,))
+            results = cursor.fetchall()
+
+            if len(results) != 0:
+                speak("Opening "+ query)
+                os.startfile(results[0][0])
+            elif len(results) == 0:
+                cursor.execute('SELECT url FROM web_command WHERE name IN (?)', (app_name,))
+                results = cursor.fetchall()
+
+                if len(results) != 0:
+                    speak("Opening "+query)
+                    webbrowser.open(results[0][0])
+                else:
+                    speak("Opening "+query)
+                    try:
+                        os.system('start '+query)
+                    except:
+                        speak("Not Found")
+        except:
+            speak("Something went wrong.")           
 
 def playYoutube(query):
     searchTerm = extract_yt_term(query)
