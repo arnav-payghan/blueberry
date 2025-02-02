@@ -46,6 +46,18 @@ $(document).ready(function () {
         eel.allCommands()()
     });
 
+    // SHORTCUT TO HOTKEY
+    function doc_keyUp(e) {
+        // this would test for whichever key is 40(down) and ctrl key at the same time.
+        if (e.key === 'h') {
+            eel.playAssistantSound()
+            $("#oval").attr("hidden", true);
+            $("#siriWave").attr("hidden", false);
+            eel.allCommands()()
+        }
+    }
+    document.addEventListener('keyup', doc_keyUp, false);
+
 
 
 });

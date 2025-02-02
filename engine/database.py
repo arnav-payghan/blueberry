@@ -10,15 +10,15 @@ query = "CREATE TABLE IF NOT EXISTS sys_command(id integer primary key, name VAR
 cursor.execute(query)
 
 # Keep Null as it is (AutoIncrementing), 'name' add name for calling, 'path' add path by double file location in PC.
-# query = "INSERT INTO sys_command VALUES (null, 'name', 'path')"
-# cursor.execute(query)
-# conn.commit()
+query = "INSERT INTO sys_command VALUES (null, 'discord', 'C:\\Users\\arnav\\AppData\\Local\\Discord\\Update.exe')"
+cursor.execute(query)
+conn.commit()
 
 # Create table : web_command
 query = "CREATE TABLE IF NOT EXISTS web_command(id integer primary key, name VARCHAR(100), url VARCHAR(1000))"
 cursor.execute(query)
 
 # Keep Null as it is (AutoIncrementing), 'name' add name for calling, 'url' add url by copying said url.
-query = "INSERT INTO web_command VALUES (null, 'youtube', 'https://www.youtube.com/')"
-cursor.execute(query)
-conn.commit()
+#query = "INSERT INTO web_command VALUES (null, 'youtube', 'https://www.youtube.com/')"
+#cursor.execute(query)
+#conn.commit()

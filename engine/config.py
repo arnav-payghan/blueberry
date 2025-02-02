@@ -1,1 +1,1 @@
-ASSISTANT_NAME = "nova"
+ASSISTANT_NAME = "hex"

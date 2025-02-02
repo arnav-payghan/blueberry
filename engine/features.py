@@ -1,12 +1,20 @@
 import re
 import sqlite3
-from playsound import playsound
+import struct
 import eel
-from engine.command import speak
-from engine.config import ASSISTANT_NAME
 import os
 import pywhatkit as kit
 import webbrowser
+import pyaudio
+import pvporcupine 
+import pyautogui as autogui
+
+from playsound import playsound
+from engine.command import speak
+from engine.config import ASSISTANT_NAME
+from engine.helper import extract_yt_term
+
+
 
 conn = sqlite3.connect("assistant.db")
 cursor = conn.cursor()
@@ -53,10 +61,32 @@ def playYoutube(query):
     speak("Playing "+searchTerm+" YouTube.")
     kit.playonyt(searchTerm)
 
-def extract_yt_term(command):
-    # Define a regular expression pattern to capture the song name
-    pattern = r'play\s+(.*?)\s+youtube'
-    # Use re.search() to find the match in command
-    match = re.search(pattern, command, re.IGNORECASE)
-    # If a match is found, return the extracted song name, ELSE retun none
-    return match.group(1) if match else None
+
+def hotword():
+    purcupine = None
+    paud = None
+    audio_stream = None
+    try:
+        # PRE TRAINED KEYWORDS
+        porcupine = pvporcupine.create(keywords=["hex", "nova"])
+        paud = pyaudio.PyAudio()
+        audio_stream = paud.open(rate=porcupine.sample_rate, channels=1, format=pyaudio.paInt16, input=True, frames_per_buffer=porcupine.frame_lenght)
+
+        # LOOP FOR STREAMING
+        while True:
+            keyword = audio_stream.read(porcupine.frame_length)
+            keyword = struct.unpack_from("h" * porcupine.frame_length, keyword)
+            # processing keyword comes from mic
+            keyword_index = porcupine.process(keyword)
+            # checking first keyword detected or not
+            if keyword_index >= 0:
+                print("Hotword Detected")
+                # pressing shortcut with "H" using autogui
+                autogui.keyPress("H")
+    except:
+        if porcupine is not None:
+            porcupine.delete()
+        if audio_stream is not None:
+            audio_stream.close()
+        if paud is not None:
+            paud.terminate()
