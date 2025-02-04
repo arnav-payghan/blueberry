@@ -1,6 +1,7 @@
 import re
 import sqlite3
 import struct
+import time
 import eel
 import os
 import pywhatkit as kit
@@ -63,18 +64,18 @@ def playYoutube(query):
 
 
 def hotword():
-    purcupine = None
+    porcupine = None
     paud = None
     audio_stream = None
     try:
         # PRE TRAINED KEYWORDS
-        porcupine = pvporcupine.create(keywords=["hex", "nova"])
+        porcupine = pvporcupine.create(keywords=["blueberry", "grapefruit", "jarvis"])
         paud = pyaudio.PyAudio()
-        audio_stream = paud.open(rate=porcupine.sample_rate, channels=1, format=pyaudio.paInt16, input=True, frames_per_buffer=porcupine.frame_lenght)
+        audio_stream = paud.open(rate=porcupine.sample_rate, channels=1, format=pyaudio.paInt16, input=True, frames_per_buffer=porcupine.frame_length)
 
         # LOOP FOR STREAMING
         while True:
-            keyword = audio_stream.read(porcupine.frame_length)
+            keyword = audio_stream.read(porcupine.frame_length, exception_on_overflow=False)
             keyword = struct.unpack_from("h" * porcupine.frame_length, keyword)
             # processing keyword comes from mic
             keyword_index = porcupine.process(keyword)
@@ -82,7 +83,10 @@ def hotword():
             if keyword_index >= 0:
                 print("Hotword Detected")
                 # pressing shortcut with "H" using autogui
-                autogui.keyPress("H")
+                autogui.keyDown("win")
+                autogui.press("j")
+                time.sleep(2)
+                autogui.keyUp("win")
     except:
         if porcupine is not None:
             porcupine.delete()
@@ -90,3 +94,4 @@ def hotword():
             audio_stream.close()
         if paud is not None:
             paud.terminate()
+        print("Error blueberry: unable to start the hotword detection")

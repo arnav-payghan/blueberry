@@ -49,7 +49,7 @@ $(document).ready(function () {
     // SHORTCUT TO HOTKEY
     function doc_keyUp(e) {
         // this would test for whichever key is 40(down) and ctrl key at the same time.
-        if (e.key === 'h') {
+        if (e.key === 'j') {
             eel.playAssistantSound()
             $("#oval").attr("hidden", true);
             $("#siriWave").attr("hidden", false);
