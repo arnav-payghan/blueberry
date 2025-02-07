@@ -1,1 +1,1 @@
-ASSISTANT_NAME = "hex"
+ASSISTANT_NAME = "blueberry"

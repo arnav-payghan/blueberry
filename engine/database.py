@@ -50,7 +50,7 @@ cursor = conn.cursor()
 
 ##########################################  ADDING A SINGLE CONTACT ##########################################
 
-# query = "INSERT INTO contacts VALUES (null, 'Arnav', '9373697593', null)"
+# query = "INSERT INTO contacts VALUES (null, 'Father', '93214 05480', null)"
 # cursor.execute(query)
 # conn.commit()
 
