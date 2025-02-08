@@ -120,33 +120,4 @@ def findContact(query):
 
 
 def whatsApp(mobile_no, message, flag, name):
-    if flag == 'message':
-        target_tab = 12
-        blueberry_message = "Message sent successfully to " + name
-    elif flag == 'phone call':
-        target_tab = 6
-        message = ''
-        blueberry_message = "Calling " + name
-    elif flag == 'video call':
-        target_tab = 5
-        message = ''
-        blueberry_message = "Video Calling " + name
     
-    ### ENCODING THE MESSAGE FOR URL
-    encoded_message = quote(message)
-    ### CONSTRUCT THE URL
-    whatsapp_url = f"whatsapp://send?phone={mobile_no}&text={encoded_message}"
-    ### CONSTRUCT THE FULL COMMAND
-    full_command = f'start "" "{whatsapp_url}"'
-    ### OPENING WHATSAPP USING THE CONSRUCTED URL USING CMD.EXE
-    subprocess.run(full_command, shell=True)
-    time.sleep(5)
-    subprocess.run(full_command, shell=True)
-
-    autogui.hotkey('ctrl', 'f')
-
-    for i in range(1, target_tab):
-        autogui.press('tab')
-        
-    autogui.hotkey('enter')
-    speak(blueberry_message)

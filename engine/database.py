@@ -50,7 +50,11 @@ cursor = conn.cursor()
 
 ##########################################  ADDING A SINGLE CONTACT ##########################################
 
-# query = "INSERT INTO contacts VALUES (null, 'Father', '93214 05480', null)"
+# query = "INSERT INTO contacts VALUES (null, 'Dad', '93214 05480', null)"
+# cursor.execute(query)
+# conn.commit()
+
+# query = "DELETE FROM contacts WHERE id = 8"
 # cursor.execute(query)
 # conn.commit()
 
