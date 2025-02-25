@@ -117,7 +117,3 @@ def findContact(query):
     except:
         speak('Does Not Exists in Contact List')
         return 0, 0
-
-
-def whatsApp(mobile_no, message, flag, name):
-    

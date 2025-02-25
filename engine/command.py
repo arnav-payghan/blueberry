@@ -23,7 +23,7 @@ def takeCommand():
     with sr.Microphone() as source:
         print("Listening")
         eel.displayMessage("Listening")
-        r.pause_threshold = 2.5
+        r.pause_threshold = 2
         r.adjust_for_ambient_noise(source)
         audio = r.listen(source, 10, 10)
 
